@@ -1,0 +1,16 @@
+{
+  "name": "recursive",
+  "version": "0.0.1",
+  "description": "Recursive file system operations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fs",
+    "file system",
+    "recursive"
+  ],
+  "author": "MadBrozzeR",
+  "license": "ISC"
+}
