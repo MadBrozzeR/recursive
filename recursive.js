@@ -16,8 +16,17 @@ File.prototype.getAbsolutePath = function (callback) {
     fs.realpath(this.fullname, callback);
 };
 
+function readFile (context, file, done) {
+  if (!context.stop) {
+    context.handlers.eachFile
+      ? context.handlers.eachFile.call(context, file, done)
+      : done();
+  }
+}
+
 function Recursive (handlers) {
   this.root = '.';
+  this.stop = false;
   this.handlers = {
     beforeDir: null,
     afterDir: null,
@@ -34,9 +43,17 @@ Recursive.prototype.setRoot = function (root) {
 }
 
 Recursive.prototype.readdir = function (dir, done) {
+  if (this.stop) {
+    return;
+  }
+
   const _this = this;
 
   function next () {
+    if (_this.stop) {
+      return;
+    }
+
     fs.readdir(_this.root + '/' + dir, function (error, files) {
       if (error && _this.handlers.error) {
         _this.handlers.error.call(_this, dir, error);
@@ -76,18 +93,18 @@ Recursive.prototype.readdir = function (dir, done) {
   this.handlers.beforeDir ? this.handlers.beforeDir.call(this, dir, next) : next();
 }
 
-function readFile (context, file, done) {
-  context.handlers.eachFile
-    ? context.handlers.eachFile.call(context, file, done)
-    : done();
-}
-
 Recursive.prototype.on = function (handlers) {
   for (let handle in handlers) {
     if (handle in this.handlers) {
       this.handlers[handle] = handlers[handle];
     }
   }
+
+  return this;
+}
+
+Recursive.prototype.polute = function (polution) {
+  this.polution = polution;
 
   return this;
 }
