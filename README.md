@@ -1,16 +1,14 @@
-# mbr-recursive
-===============
+# recoursive
 
 Library for asynchronous recursive operations with file system (only Unix based systems have been tested).
 
 ## recursive
-============
 
 ```
-const recursive = require('mbr-recursive').recursive;
+const recursive = require('recoursive').recursive;
 
 recursive({
-  beforeDif: function (dirPath, done) {
+  beforeDir: function (dirPath, done) {
     /**
      * Function to be called before each directory entry.
      *
@@ -50,12 +48,11 @@ recursive({
 ```
 
 ## copy
-=======
 
 Recursive directory copy.
 
 ```
-const copy = require('mbr-recursive').copy;
+const copy = require('recoursive').copy;
 
 copy('./source/directory', './destination/directory', {
   verbosely: true, // output process to console.
@@ -70,12 +67,11 @@ copy('./source/directory', './destination/directory', {
 ```
 
 ## remove
-=========
 
 Recurcive directory remove.
 
 ```
-const rm = require('mbr-recursive').remove;
+const rm = require('recoursive').remove;
 
 rm('./directory', {
   verbosely: true, // output process to console.
