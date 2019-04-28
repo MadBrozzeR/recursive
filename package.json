@@ -1,6 +1,6 @@
 {
   "name": "mbr-recursive",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Recursive file system operations",
   "main": "index.js",
   "scripts": {
